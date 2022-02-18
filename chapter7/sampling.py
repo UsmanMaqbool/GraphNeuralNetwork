@@ -2,35 +2,35 @@ import numpy as np
 
 
 def sampling(src_nodes, sample_num, neighbor_table):
-    """根据源节点采样指定数量的邻居节点，注意使用的是有放回的采样；
-    某个节点的邻居节点数量少于采样数量时，采样结果出现重复的节点
+    """Sample the specified number of neighbor nodes according to the source node, note that the sampling with replacement is used;
+    When the number of neighbor nodes of a node is less than the number of samples, the sampling results show duplicate nodes
     
     Arguments:
-        src_nodes {list, ndarray} -- 源节点列表
-        sample_num {int} -- 需要采样的节点数
-        neighbor_table {dict} -- 节点到其邻居节点的映射表
+        src_nodes {list, ndarray} -- list of source nodes
+        sample_num {int} -- the number of nodes to sample
+        neighbor_table {dict} -- the mapping table of nodes to their neighbors
     
     Returns:
-        np.ndarray -- 采样结果构成的列表
+        np.ndarray -- a list of sampled results
     """
     results = []
     for sid in src_nodes:
-        # 从节点的邻居中进行有放回地进行采样
+        # Sampling with replacement from the node's neighbors
         res = np.random.choice(neighbor_table[sid], size=(sample_num, ))
         results.append(res)
     return np.asarray(results).flatten()
 
 
 def multihop_sampling(src_nodes, sample_nums, neighbor_table):
-    """根据源节点进行多阶采样
+    """Multi-order sampling based on source node
     
     Arguments:
-        src_nodes {list, np.ndarray} -- 源节点id
-        sample_nums {list of int} -- 每一阶需要采样的个数
-        neighbor_table {dict} -- 节点到其邻居节点的映射
+        src_nodes {list, np.ndarray} -- source node id
+        sample_nums {list of int} -- the number of samples to be sampled at each stage
+        neighbor_table {dict} -- a map of nodes to their neighbors
     
     Returns:
-        [list of ndarray] -- 每一阶采样的结果
+        [list of ndarray] -- the result of each stage of sampling
     """
     sampling_result = [src_nodes]
     for k, hopk_num in enumerate(sample_nums):

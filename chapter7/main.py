@@ -1,6 +1,6 @@
 #coding: utf-8
 """
-基于Cora的GraphSage示例
+Cora-based GraphSage example
 """
 import torch
 
@@ -12,22 +12,22 @@ from data import CoraData
 from sampling import multihop_sampling
 
 from collections import namedtuple
-INPUT_DIM = 1433    # 输入维度
-# Note: 采样的邻居阶数需要与GCN的层数保持一致
-HIDDEN_DIM = [128, 7]   # 隐藏单元节点数
-NUM_NEIGHBORS_LIST = [10, 10]   # 每阶采样邻居的节点数
+INPUT_DIM = 1433 # input dimension
+# Note: The neighbor order of sampling needs to be consistent with the number of layers of GCN
+HIDDEN_DIM = [128, 7] # number of hidden unit nodes
+NUM_NEIGHBORS_LIST = [10, 10] # The number of nodes sampling neighbors per order
 assert len(HIDDEN_DIM) == len(NUM_NEIGHBORS_LIST)
-BTACH_SIZE = 16     # 批处理大小
+BTACH_SIZE = 16 # batch size
 EPOCHS = 20
-NUM_BATCH_PER_EPOCH = 20    # 每个epoch循环的批次数
-LEARNING_RATE = 0.01    # 学习率
+NUM_BATCH_PER_EPOCH = 20 # batches per epoch
+LEARNING_RATE = 0.01 # learning rate
 DEVICE = "cuda" if torch.cuda.is_available() else "cpu"
 
 Data = namedtuple('Data', ['x', 'y', 'adjacency_dict',
                            'train_mask', 'val_mask', 'test_mask'])
 
 data = CoraData().data
-x = data.x / data.x.sum(1, keepdims=True)  # 归一化数据，使得每一行和为1
+x = data.x / data.x.sum(1, keepdims=True) # Normalize the data so that each row sums to 1
 
 train_index = np.where(data.train_mask)[0]
 train_label = data.y
@@ -50,8 +50,8 @@ def train():
             batch_train_logits = model(batch_sampling_x)
             loss = criterion(batch_train_logits, batch_src_label)
             optimizer.zero_grad()
-            loss.backward()  # 反向传播计算参数的梯度
-            optimizer.step()  # 使用优化方法进行梯度更新
+            loss.backward() # Backpropagation calculates the gradient of the parameters
+            optimizer.step() # use optimization method for gradient update
             print("Epoch {:03d} Batch {:03d} Loss: {:.4f}".format(e, batch, loss.item()))
         test()
 
@@ -70,4 +70,3 @@ def test():
 
 if __name__ == '__main__':
     train()
-

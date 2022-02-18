@@ -1,19 +1,19 @@
-## Chapter7：GraphSage示例（使用Cora数据集）
+## Chapter7: GraphSage example (using Cora dataset)
 
-### 文件说明
+### file description
 
-| 文件        | 说明                          |
+| Documentation | Instructions |
 | :---------- | ----------------------------- |
-| main.py     | 基于Cora数据集的GraphSage示例 |
-| net.py      | 主要是GraphSage定义           |
-| data.py     | 主要是Cora数据集准备          |
-| sampling.py | 简单的采样接口                |
+| main.py | GraphSage example based on Cora dataset |
+| net.py | Mainly GraphSage definitions |
+| data.py | Mainly Cora dataset preparation |
+| sampling.py | Simple sampling interface |
 
-### 运行示例
+### Running the example
 
 ```shell
 cd chapter7
 python3 main.py
 ```
 
-TODO: 支持在Colab中运行
+TODO: support running in Colab

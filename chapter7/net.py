@@ -5,15 +5,15 @@ import torch.nn.init as init
 
 
 class NeighborAggregator(nn.Module):
-    def __init__(self, input_dim, output_dim, 
+    def __init__(self, input_dim, output_dim,
                  use_bias=False, aggr_method="mean"):
-        """聚合节点邻居
+        """Aggregate node neighbors
 
         Args:
-            input_dim: 输入特征的维度
-            output_dim: 输出特征的维度
-            use_bias: 是否使用偏置 (default: {False})
-            aggr_method: 邻居聚合方式 (default: {mean})
+            input_dim: the dimension of the input feature
+            output_dim: the dimension of the output feature
+            use_bias: whether to use bias (default: {False})
+            aggr_method: neighbor aggregation method (default: {mean})
         """
         super(NeighborAggregator, self).__init__()
         self.input_dim = input_dim
@@ -54,19 +54,19 @@ class NeighborAggregator(nn.Module):
 
 class SageGCN(nn.Module):
     def __init__(self, input_dim, hidden_dim,
-                 activation=F.relu,
+                 activation=F.read,
                  aggr_neighbor_method="mean",
                  aggr_hidden_method="sum"):
-        """SageGCN层定义
+        """SageGCN layer definition
 
         Args:
-            input_dim: 输入特征的维度
-            hidden_dim: 隐层特征的维度，
-                当aggr_hidden_method=sum, 输出维度为hidden_dim
-                当aggr_hidden_method=concat, 输出维度为hidden_dim*2
-            activation: 激活函数
-            aggr_neighbor_method: 邻居特征聚合方法，["mean", "sum", "max"]
-            aggr_hidden_method: 节点特征的更新方法，["sum", "concat"]
+            input_dim: the dimension of the input feature
+            hidden_dim: dimension of hidden layer features,
+                When aggr_hidden_method=sum, the output dimension is hidden_dim
+                When aggr_hidden_method=concat, the output dimension is hidden_dim*2
+            activation: activation function
+            aggr_neighbor_method: neighbor feature aggregation method, ["mean", "sum", "max"]
+            aggr_hidden_method: update method of node features, ["sum", "concat"]
         """
         super(SageGCN, self).__init__()
         assert aggr_neighbor_method in ["mean", "sum", "max"]

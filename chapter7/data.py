@@ -1,4 +1,4 @@
-import os
+import them
 import os.path as osp
 import pickle
 import numpy as np
@@ -17,24 +17,24 @@ class CoraData(object):
                  ['x', 'tx', 'allx', 'y', 'ty', 'ally', 'graph', 'test.index']]
 
     def __init__(self, data_root="../data/cora", rebuild=False):
-        """Cora数据，包括数据下载，处理，加载等功能
-        当数据的缓存文件存在时，将使用缓存文件，否则将下载、进行处理，并缓存到磁盘
+        """Cora data, including data download, processing, loading and other functions
+        When a cache file for the data exists, the cache file will be used, otherwise it will be downloaded, processed, and cached to disk
 
-        处理之后的数据可以通过属性 .data 获得，它将返回一个数据对象，包括如下几部分：
-            * x: 节点的特征，维度为 2708 * 1433，类型为 np.ndarray
-            * y: 节点的标签，总共包括7个类别，类型为 np.ndarray
-            * adjacency_dict: 邻接信息，，类型为 dict
-            * train_mask: 训练集掩码向量，维度为 2708，当节点属于训练集时，相应位置为True，否则False
-            * val_mask: 验证集掩码向量，维度为 2708，当节点属于验证集时，相应位置为True，否则False
-            * test_mask: 测试集掩码向量，维度为 2708，当节点属于测试集时，相应位置为True，否则False
+        The processed data can be obtained through the property .data, which will return a data object, including the following parts:
+            * x: the characteristics of the node, the dimension is 2708 * 1433, the type is np.ndarray
+            * y: The label of the node, including a total of 7 categories, the type is np.ndarray
+            * adjacency_dict: adjacency information, the type is dict
+            * train_mask: The training set mask vector, the dimension is 2708, when the node belongs to the training set, the corresponding position is True, otherwise False
+            * val_mask: Validation set mask vector, the dimension is 2708, when the node belongs to the validation set, the corresponding position is True, otherwise False
+            * test_mask: The test set mask vector, the dimension is 2708, when the node belongs to the test set, the corresponding position is True, otherwise False
 
         Args:
         -------
             data_root: string, optional
-                存放数据的目录，原始数据路径: ../data/cora
-                缓存数据路径: {data_root}/ch7_cached.pkl
+                The directory where the data is stored, the original data path: ../data/cora
+                Cache data path: {data_root}/ch7_cached.pkl
             rebuild: boolean, optional
-                是否需要重新构建数据集，当设为True时，如果存在缓存数据也会重建数据
+                Whether the dataset needs to be rebuilt, when set to True, the data will also be rebuilt if there is cached data
 
         """
         self.data_root = data_root
@@ -50,13 +50,13 @@ class CoraData(object):
 
     @property
     def data(self):
-        """返回Data数据对象，包括x, y, adjacency, train_mask, val_mask, test_mask"""
+        """Return Data object, including x, y, adjacency, train_mask, val_mask, test_mask"""
         return self._data
 
     def process_data(self):
         """
-        处理数据，得到节点特征和标签，邻接矩阵，训练集、验证集以及测试集
-        引用自：https://github.com/rusty1s/pytorch_geometric
+        Process data to get node features and labels, adjacency matrix, training set, validation set and test set
+        Quoted from: https://github.com/rusty1s/pytorch_geometric
         """
         print("Process data ...")
         _, tx, allx, y, ty, ally, graph, test_index = [self.read_data(
@@ -91,13 +91,13 @@ class CoraData(object):
 
     @staticmethod
     def build_adjacency(adj_dict):
-        """根据邻接表创建邻接矩阵"""
+        """Create an adjacency matrix from the adjacency list"""
         edge_index = []
         num_nodes = len(adj_dict)
         for src, dst in adj_dict.items():
             edge_index.extend([src, v] for v in dst)
             edge_index.extend([v, src] for v in dst)
-        # 去除重复的边
+        # remove duplicate edges
         edge_index = list(k for k, _ in itertools.groupby(sorted(edge_index)))
         edge_index = np.asarray(edge_index)
         adjacency = sp.coo_matrix((np.ones(len(edge_index)),
@@ -107,7 +107,7 @@ class CoraData(object):
 
     @staticmethod
     def read_data(path):
-        """使用不同的方式读取原始数据以进一步处理"""
+        """Use a different way to read raw data for further processing"""
         name = osp.basename(path)
         if name == "ind.cora.test.index":
             out = np.genfromtxt(path, dtype="int64")
