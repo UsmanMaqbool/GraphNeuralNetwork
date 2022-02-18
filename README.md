@@ -1,34 +1,34 @@
-# GraphNeuralNetwork
-《深入浅出图神经网络：GNN原理解析》配套代码
+#GraphNeuralNetwork
+"In-depth and simple graph neural network: GNN principle analysis" supporting code
 
-### 关于勘误
+### About Errata
 
->由于作者水平有限，时间仓促，书中难免会有一些错误或不准确的地方，给读者朋友造成了困扰，表示抱歉。
-仓库中提供了目前已经发现的一些问题的[勘误](./勘误.pdf),在此向指正这些错误的读者朋友表示感谢。
+>Due to the limited level of the author and the rush of time, there will inevitably be some errors or inaccuracies in the book, which have caused trouble to readers and friends. I apologize.
+The [errata] (./errata.pdf) of some problems that have been found so far is provided in the warehouse, and I would like to express my thanks to the readers who corrected these errors.
 
-* 在5.4节图滤波器的介绍中，存在一些描述错误和概念模糊的问题，可能给读者理解造成偏差，勘误中对相关问题进行了更正
+* In the introduction of the graph filter in Section 5.4, there are some description errors and vague concepts, which may cause deviations in the reader's understanding. The errata corrects the relevant problems
 
-### 环境依赖
-```
+### Environment dependencies
+````
 python>=3.6
 jupyter
 scipy
 numpy
 matplotlib
 torch>=1.2.0
-```
+````
 
-### Getting Start
+### Getting Started
 
-* [x] [Chapter5: 基于GCN的节点分类](./chapter5)
-* [x] [Chapter7: GraphSage示例](./chapter7)
-* [x] [Chapter8: 图分类示例](./chapter8)
-* [x] [Chapter9: 图自编码器](./chapter9)
+* [x] [Chapter5: GCN-based node classification](./chapter5)
+* [x] [Chapter7: GraphSage example](./chapter7)
+* [x] [Chapter8: Example of graph classification](./chapter8)
+* [x] [Chapter9: Graph Autoencoder](./chapter9)
 
 ### FAQ
 
-1. Cora数据集无法下载
+1. Cora dataset cannot be downloaded
 
-Cora数据集地址是：[kimiyoung/planetoid](https://github.com/kimiyoung/planetoid/tree/master/data)。
-~~仓库中提供了一份使用到的cora数据，可以分别将它放在 `chapter5/cora/raw` 或者 `chapter7/cora/raw` 目录下。~~
-新代码直接使用本地数据.
+The address of the Cora dataset is: [kimiyoung/planetoid](https://github.com/kimiyoung/planetoid/tree/master/data).
+~~The repository provides a copy of the cora data used, which can be placed in the `chapter5/cora/raw` or `chapter7/cora/raw` directory respectively. ~~
+The new code uses local data directly.
